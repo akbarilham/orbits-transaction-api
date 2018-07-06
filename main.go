@@ -7,9 +7,9 @@ import (
 	"io"
 	"log"
 	_ "net/http"
-	"orbits-transaction-api/driver/databases"
-	"orbits-transaction-api/usecases/example"
-	"orbits-transaction-api/usecases/transaction"
+	"./driver/databases"
+	
+	"./usecases/transaction"
 	//"orbits-transaction-api/usecases/transaction/customer"
 	//"orbits-transaction-api/usecases/transaction/inventory"
 	//"orbits-transaction-api/usecases/transaction/subscription"
@@ -54,18 +54,15 @@ func main() {
 	{
 		List := Transaction.Group("/list")
 		{
-			List.POST("/getbyeventinput", transaction.GetByEventInput)
-			List.POST("/getbyeventrated", transaction.GetByEventRated)
-			List.POST("/getbyall", transaction.GetByTransactionList)
+			// List.POST("/getbyeventinput", transaction.GetByEventInput)
+			// List.POST("/getbyeventrated", transaction.GetByEventRated)
+			List.GET("/getbyall", transaction.GetByTransactionList)
 			// List.POST("/gettransactionhistorybydate", transaction.GetTransactionHistoryByDate)
 			// List.POST("/gettransactionrecapbydate", transaction.GetTransactionRecapByDate)
 		}
 
 	}
 	/* Register some route (ping) and bind it to certain usecase(controller) */
-	r.POST("/ping", example.Example) //Example
-	r.POST("/ping/insert", example.InsertExample)
-
 	/* Listen and serve to a port */
 	r.Run(config.PORT)
 }
