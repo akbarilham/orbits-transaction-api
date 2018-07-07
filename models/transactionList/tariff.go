@@ -1,8 +1,9 @@
-package tariff
+package transactionList
 
 import (
+	"orbits-transaction-api/models/auditTrail"
+
 	"gopkg.in/mgo.v2/bson"
-	"orbits-master-api/models/auditTrail"
 )
 
 type Tariff struct {

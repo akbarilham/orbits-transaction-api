@@ -7,8 +7,8 @@ import (
 	"io"
 	"log"
 	_ "net/http"
+
 	"./driver/databases"
-	
 	"./usecases/transaction"
 	//"orbits-transaction-api/usecases/transaction/customer"
 	//"orbits-transaction-api/usecases/transaction/inventory"
@@ -54,11 +54,8 @@ func main() {
 	{
 		List := Transaction.Group("/list")
 		{
-			// List.POST("/getbyeventinput", transaction.GetByEventInput)
-			// List.POST("/getbyeventrated", transaction.GetByEventRated)
 			List.GET("/getbyall", transaction.GetByTransactionList)
-			// List.POST("/gettransactionhistorybydate", transaction.GetTransactionHistoryByDate)
-			// List.POST("/gettransactionrecapbydate", transaction.GetTransactionRecapByDate)
+			List.POST("/getbysearch", transaction.GetByTransactionListSearch)
 		}
 
 	}
