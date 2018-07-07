@@ -169,18 +169,24 @@ func GetByTransactionList(c *gin.Context) {
 		
 
 	fmt.Println("pages",page)
-
+	if page >=1{
+		page --
+	}
 	pipeline := []bson.M{
 		bson.M{"$sort": bson.M{"timestamp_tr.time": 1}},
 		bson.M{"$lookup": bson.M{"from": "event_rated", "localField": "uuid_input", "foreignField": "externalid", "as": "event_rated"}},
 	
-	 	bson.M{ "$limit": page + limit },
+	 	bson.M{ "$limit": page+limit },
     	bson.M{ "$skip": page },
     	// bson.M{"$project": bson.M{"_id": 0, "iddevice": 1, "uuid_input": 1, "event_rated": 1}},
 	}
+	page++
 
 	pipe := eventInputCon.Pipe(pipeline)
 	err = pipe.All(&resp)
+
+
+
 	for i := 0; i < len(resp); i++ {
 		
 		var subscription Subscriber
